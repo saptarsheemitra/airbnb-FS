@@ -9,6 +9,7 @@ import { Toast, Toaster } from "react-hot-toast";
 import ToasterProvider from "./components/providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
+import RentModal from "./components/modals/RentModal";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default async function RootLayout({
         {/* <ToasterProvider/> */} {/* Toast wrapped within a component */}
         <Navbar currentUser = {currentUser}/>
         {/* Modals */}
+        <RentModal/>
         <RegisterModal/> 
         <LoginModal/>
         {/* <Modal isOpen actionLabel="Submit" title="Login"/> */}

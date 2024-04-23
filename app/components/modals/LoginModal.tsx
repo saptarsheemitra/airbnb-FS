@@ -55,6 +55,11 @@ const LoginModal = () => {
     });
   };
 
+  const toggleModal = ()=>{
+    loginModal.onClose();
+    registerModal.onOpen();
+  }
+  
   const BodyContent = () => {
     return (
       <div className="flex flex-col gap-4">
@@ -96,22 +101,22 @@ const LoginModal = () => {
           outline
           label="Continue with Google"
           Icon={FcGoogle}
-          onClick={() => {}}
+          onClick={() => {signIn('google')}}
         />
         <Button
           outline
           label="Continue with GitHub"
           Icon={AiFillGithub}
-          onClick={() => {}}
+          onClick={() => {signIn('github') }}
         />
         <div className="text-neutral-500 text-center font-light mt-2">
           <div className="flex flex-row justify-center items-center gap-2 ">
-            <div>Already have an account?</div>
+            <div>First time using Airbnb?</div>
             <div
-              onClick={loginModal.onClose}
+              onClick={toggleModal}
               className="text-neutral-800 font-semibold cursor-pointer hover:underline"
             >
-              Login
+              Create an account
             </div>
           </div>
         </div>
