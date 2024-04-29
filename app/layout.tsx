@@ -28,16 +28,16 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         {/* <ClientOnly>*/} {/*To solve hydration error */}
-        <Toaster/>
+        <Toaster />
         {/* <ToasterProvider/> */} {/* Toast wrapped within a component */}
-        <Navbar currentUser = {currentUser}/>
+        <Navbar currentUser={currentUser} />
         {/* Modals */}
-        <RentModal/>
-        <RegisterModal/> 
-        <LoginModal/>
+        <RentModal />
+        <RegisterModal />
+        <LoginModal />
         {/* <Modal isOpen actionLabel="Submit" title="Login"/> */}
         {/* </ClientOnly> */}
-        {children}
+        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );
