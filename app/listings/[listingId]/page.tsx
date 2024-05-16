@@ -9,7 +9,7 @@ interface IParams {
   listingId?: string;
 }
 
-const page = async ({ params }: { params: IParams }) => {
+const ListingPage = async ({ params }: { params: IParams }) => {
   const listing = await getListing(params);
   const reservations = await getReservations(params);
   const currentUser = await getCurrentUser();
@@ -29,4 +29,4 @@ const page = async ({ params }: { params: IParams }) => {
   );
 };
 
-export default page;
+export default ListingPage;

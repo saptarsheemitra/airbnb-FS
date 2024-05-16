@@ -57,10 +57,10 @@ const ListingClient = ({
         toast.success("Listing reserved");
         setIsLoading(false);
         //redirect to /trips
-        router.refresh();
+        router.push('/trips')
       })
       .catch(() => toast.error("Something went wrong"))
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoading(false)); 
 
   }, [totalPrice, dateRange, listing?.id, router, currentUser, loginModal]);
 
