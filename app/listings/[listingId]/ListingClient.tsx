@@ -92,21 +92,6 @@ const ListingClient = ({
     return dates;
   }, [reservations]);
 
-  // const disabledDates = useMemo(() => {
-  //     let dates: Date[] = [];
-
-  //     reservations.forEach((reservation: any) => {
-  //       const range = eachDayOfInterval({
-  //         start: new Date(reservation.startDate),
-  //         end: new Date(reservation.endDate)
-  //       });
-
-  //       dates = [...dates, ...range];
-  //     });
-
-  //     return dates;
-  //   }, [reservations]);
-
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
   }, [listing.category]);

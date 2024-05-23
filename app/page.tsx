@@ -3,12 +3,17 @@ import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import { useState } from "react";
 import EmptyState from "./components/EmptyState";
-import getListing from "./actions/getListing";
+import getListing, { IListingParams } from "./actions/getListing";
 import ListingCard from "./components/listings/ListingCard";
 import getCurrentUser from "./actions/getCurrentUser";
 
-const Home = async () => {
-  const listings = await getListing();
+interface IHomeParams{
+  searchParams: IListingParams;
+}
+
+const Home = async ({searchParams}:IHomeParams) => {
+  // console.log(searachParams)
+  const listings = await getListing(searchParams);
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {

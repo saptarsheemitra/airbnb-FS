@@ -10,18 +10,18 @@ interface IParams {
 }
 
 const ListingPage = async ({ params }: { params: IParams }) => {
-  const listing = await getListing(params);
+  const listings = await getListing(params);
   const reservations = await getReservations(params);
   const currentUser = await getCurrentUser();
 
-  if (!listing) {
+  if (!listings) {
     return <EmptyState />;
   }
 
   return (
     <div>
       <ListingClient
-        listing={listing}
+        listing={listings}
         reservations={reservations}
         currentUser={currentUser}
       />
