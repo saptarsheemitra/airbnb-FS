@@ -24,6 +24,7 @@ const Home = async ({searchParams}:IHomeParams) => {
     );
   }
 
+
   return (
     <>
       {/* <ClientOnly> */}

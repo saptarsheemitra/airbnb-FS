@@ -13,7 +13,6 @@ const PropertiesPage = async () => {
     return <EmptyState title="Unauthorized" subtitle="Please login " />;
 
   const listings = await getListing({ userId: currentUser.id });
-  console.log(listings)
 
   if (listings.length === 0)
     return (
