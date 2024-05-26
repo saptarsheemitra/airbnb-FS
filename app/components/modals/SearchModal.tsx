@@ -3,7 +3,7 @@
 import useSearchModal from "@/app/hooks/useSearchModal";
 import Modal from "./Modal";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import dynamic from "next/dynamic";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
@@ -40,6 +40,7 @@ const SearchModal = () => {
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     [location]
   );
 

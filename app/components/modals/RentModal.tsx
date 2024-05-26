@@ -60,8 +60,10 @@ const RentModal = () => {
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
 
+  
   const Map = useMemo(
     () => dynamic(() => import("../Map"), { ssr: false }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [location]
   );
 
@@ -81,20 +83,21 @@ const RentModal = () => {
     setStep((value) => value + 1);
   };
 
-  const  onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (step !== STEPS.PRICE) {
       return onNext();
     }
 
     setIsLoading(true);
-    axios.post("/api/listings", data)
+    axios
+      .post("/api/listings", data)
       .then(() => {
         toast.success("Listing created!");
         router.refresh();
         reset();
         setStep(STEPS.CATEGORY);
         rentModal.onClose();
-      }) 
+      })
       .catch(() => toast.error("Something went wrong! "))
       .finally(() => setIsLoading(false));
   };
@@ -111,151 +114,140 @@ const RentModal = () => {
     return "Back";
   }, [step]);
 
-  let BodyContent = () => {
-    return (
-      <>
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Which of these best describes your place?"
-            subtitle="Pick a category"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-            {categories.map((item) => {
-              return (
-                <div key={item.label} className="col-span-1">
-                  <CategoryInput
-                    onClick={(category) => setCustomValue("category", category)}
-                    selected={category === item.label}
-                    label={item.label}
-                    Icon={item.icon}
-                  />
-                </div>
-              );
-            })}
-          </div>
+  let BodyContent = (
+    <>
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Which of these best describes your place?"
+          subtitle="Pick a category"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+          {categories.map((item) => {
+            return (
+              <div key={item.label} className="col-span-1">
+                <CategoryInput
+                  onClick={(category) => setCustomValue("category", category)}
+                  selected={category === item.label}
+                  label={item.label}
+                  Icon={item.icon}
+                />
+              </div>
+            );
+          })}
         </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
 
   if (step === STEPS.LOCATION) {
-    BodyContent = () => {
-      return (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Where is your place located?"
-            subtitle="Help guest find you!"
-          />
-          <CountrySelect
-            value={location}
-            onChange={(value) => setCustomValue("location", value)}
-          />
-          <Map center={location?.latlng} />
-        </div>
-      );
-    };
+    BodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guest find you!"
+        />
+        <CountrySelect
+          value={location}
+          onChange={(value) => setCustomValue("location", value)}
+        />
+        <Map center={location?.latlng} />
+      </div>
+    );
   }
 
   if (step === STEPS.INFO) {
-    BodyContent = () => {
-      return (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Share some basic about your place"
-            subtitle="What amenities do you have?"
-          />
-          <Counter
-            title="Guests"
-            subtitle="How many guests do you allow?"
-            value={guestCount}
-            onChange={(value) => setCustomValue("guestCount", value)}
-          />
-          <hr />
-          <Counter
-            title="Rooms"
-            subtitle="How many rooms do you have?"
-            value={roomCount}
-            onChange={(value) => setCustomValue("roomCount", value)}
-          />
-          <hr />
-          <Counter
-            title="Bathrooms"
-            subtitle="How many bathrooms do you have?"
-            value={bathroomCount}
-            onChange={(value) => setCustomValue("bathroomCount", value)}
-          />
-        </div>
-      );
-    };
+    BodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share some basic about your place"
+          subtitle="What amenities do you have?"
+        />
+        <Counter
+          title="Guests"
+          subtitle="How many guests do you allow?"
+          value={guestCount}
+          onChange={(value) => setCustomValue("guestCount", value)}
+        />
+        <hr />
+        <Counter
+          title="Rooms"
+          subtitle="How many rooms do you have?"
+          value={roomCount}
+          onChange={(value) => setCustomValue("roomCount", value)}
+        />
+        <hr />
+        <Counter
+          title="Bathrooms"
+          subtitle="How many bathrooms do you have?"
+          value={bathroomCount}
+          onChange={(value) => setCustomValue("bathroomCount", value)}
+        />
+      </div>
+    );
   }
 
   if (step === STEPS.IMAGES) {
-    BodyContent = () => {
-      return (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Add a photo of your place"
-            subtitle="Show guests what your place looks like!"
-          />
-          <ImageUpload
-            value={imageSrc}
-            onChange={(value) => setCustomValue("imageSrc", value)}
-          />
-        </div>
-      );
-    };
+    BodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Add a photo of your place"
+          subtitle="Show guests what your place looks like!"
+        />
+        <ImageUpload
+          value={imageSrc}
+          onChange={(value) => setCustomValue("imageSrc", value)}
+        />
+      </div>
+    );
   }
+
   if (step === STEPS.DESCRIPTION) {
-    BodyContent = () => {
-      return (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="How would you describe your place?"
-            subtitle="Short and sweet works best!"
-          />
-          <Input
-            id="title"
-            label="Title"
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
-          <hr />
-          <Input
-            id="description"
-            label="Description"
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
-        </div>
-      );
-    };
+    BodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="How would you describe your place?"
+          subtitle="Short and sweet works best!"
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
   }
 
   if (step === STEPS.PRICE) {
-    BodyContent = () => {
-      return (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Now set your price"
-            subtitle="How much do you charge per night?"
-          />
-          <Input
-            id="price"
-            label="Price"
-            formatPrice
-            type="number"
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
-        </div>
-      );
-    };
+    BodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Now set your price"
+          subtitle="How much do you charge per night?"
+        />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
   }
 
   return (
@@ -268,8 +260,8 @@ const RentModal = () => {
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
-      body={<BodyContent />}
-      //   footer={<FooterContent />}
+      body={BodyContent}
+      // footer={<FooterContent />}
     />
   );
 };
