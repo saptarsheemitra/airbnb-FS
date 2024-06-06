@@ -1,10 +1,10 @@
 "use client";
 
+import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import useSearchModal from "@/app/hooks/useSearchModal";
 import { BiSearch } from "react-icons/bi";
 import useCountries from "@/app/hooks/useCountries";
-import { useMemo } from "react";
 import { differenceInDays } from "date-fns";
 
 const Search = () => {

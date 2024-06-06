@@ -1,10 +1,12 @@
 "use client";
 
-import { Listing, Reservation } from "@prisma/client";
+// *************Types***************
+import { Listing } from "@prisma/client";
 import { SafeUser } from "../type";
+// *************Components***************
+import ListingCard from "../components/listings/ListingCard";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
-import ListingCard from "../components/listings/ListingCard";
 
 interface FavouritesClientsProps {
   favouriteListings: Listing[];

@@ -1,14 +1,14 @@
 "use client";
 
-import useSearchModal from "@/app/hooks/useSearchModal";
-import Modal from "./Modal";
+import { useCallback, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Range } from "react-date-range";
 import dynamic from "next/dynamic";
-import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
+import { Range } from "react-date-range";
 import queryString from "query-string";
 import { formatISO } from "date-fns";
+import useSearchModal from "@/app/hooks/useSearchModal";
+import Modal from "./Modal";
+import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import Heading from "../Heading";
 import Calendar from "../inputs/Calendar";
 import Counter from "../inputs/Counter";

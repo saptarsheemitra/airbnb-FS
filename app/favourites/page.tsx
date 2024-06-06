@@ -1,6 +1,8 @@
-import EmptyState from "../components/EmptyState";
+// *************Actions***************
 import getCurrentUser from "../actions/getCurrentUser";
 import getFavouriteListings from "../actions/getFavouriteListings";
+// *************Components***************
+import EmptyState from "../components/EmptyState";
 import FavouritesClient from "./FavouritesClients";
 
 const ListingPage = async () => {
@@ -9,22 +11,18 @@ const ListingPage = async () => {
 
   if (favouriteListings.length === 0) {
     return (
-      <div>
-        <EmptyState
-          title="No favourites found"
-          subtitle="Looks like you have no favourite listings"
-        />
-      </div>
+      <EmptyState
+        title="No favourites found"
+        subtitle="Looks like you have no favourite listings"
+      />
     );
   }
 
   return (
-    <>
-      <FavouritesClient
-        favouriteListings={favouriteListings}
-        currentUser={currentUser}
-      />
-    </>
+    <FavouritesClient
+      favouriteListings={favouriteListings}
+      currentUser={currentUser}
+    />
   );
 };
 

@@ -17,13 +17,6 @@ export default async function getFavouriteListings() {
       },
     });
 
-    // const safeFavourites = favourites.map((favourite) => {
-    //     return {
-    //       ...favourite,
-    //       createdAt: favourite.created_At.toISOString()
-    //     };
-    //   });
-
     return favourites;
     
   } catch (error: any) {

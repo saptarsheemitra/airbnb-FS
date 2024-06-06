@@ -1,5 +1,4 @@
 import prisma from "@/app/libs/prismadb";
-// import getListing from "./getListing";
 
 interface Iparams{
     listingId?: string;

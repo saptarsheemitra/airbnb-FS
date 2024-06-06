@@ -35,11 +35,7 @@ const CountrySelect = ({ value, onChange }: CountrySelectProps) => {
             </div>
           </div>
         )}
-        // className={{
-        //     control:() => "p-3 border-2",
-        //     input:()=>"text-lg bg-black",
-        //     option:()=>"text-lg",
-        // }}
+ 
         theme={(theme) => ({
           ...theme,
           borderRadius: 6,

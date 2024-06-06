@@ -4,9 +4,10 @@ import { useState, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
+// *************Types***************
 import { Reservation } from "@prisma/client";
-import { SafeReservation, SafeUser } from "../type";
+import { SafeUser } from "../type";
+// *************Components***************
 import Heading from "../components/Heading";
 import Container from "../components/Container";
 import ListingCard from "../components/listings/ListingCard";

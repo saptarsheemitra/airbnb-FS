@@ -87,7 +87,9 @@ export default async function getListing(params: IListingParams) {
       ...listing,
       created_At: listing.created_At.toISOString(),
     }));
+
     return safeListings;
+    
   } catch (error: any) {
     throw new Error(error);
   }

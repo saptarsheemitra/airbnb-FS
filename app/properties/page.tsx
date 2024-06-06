@@ -1,10 +1,9 @@
-
-import EmptyState from "../components/EmptyState";
-import ClientOnly from "../components/ClientOnly";
+// *************Actions***************
 import getCurrentUser from "../actions/getCurrentUser";
-import getReservations from "../actions/getReservations";
-import PropertiesClient from "./PropertiesClient";
 import getListing from "../actions/getListing";
+// *************Components***************
+import EmptyState from "../components/EmptyState";
+import PropertiesClient from "./PropertiesClient";
 
 const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
@@ -23,10 +22,8 @@ const PropertiesPage = async () => {
     );
 
   return (
-<PropertiesClient propertyListings={listings} currentUser={currentUser} />
+    <PropertiesClient propertyListings={listings} currentUser={currentUser} />
   );
 };
 
 export default PropertiesPage;
- 
-

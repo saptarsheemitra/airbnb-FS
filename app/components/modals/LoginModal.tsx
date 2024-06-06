@@ -1,19 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import toast from "react-hot-toast";
+import { AiFillGithub } from "react-icons/ai";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
-import toast from "react-hot-toast";
 import Button from "../Button";
-import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -24,7 +23,6 @@ const LoginModal = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -45,7 +43,6 @@ const LoginModal = () => {
       if (callback?.ok) {
         toast.success("Logged in");
         router.refresh();
-        // reset();
         loginModal.onClose();
       } else if (callback?.error) {
         toast.error(callback.error);
@@ -64,14 +61,6 @@ const LoginModal = () => {
     return (
       <div className="flex flex-col gap-4">
         <Heading title="Welcome back" subtitle="Login to your account! " />
-        {/* <Input
-          id="name"
-          label="Name"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        /> */}
         <Input
           id="email"
           label="Email"
@@ -133,7 +122,6 @@ const LoginModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       actionLabel="Continue"
       body={<BodyContent />}
-      // body={bodyContent}
       footer={<FooterContent />}
     />
   );

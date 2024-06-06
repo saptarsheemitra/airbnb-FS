@@ -1,19 +1,21 @@
 "use client";
-
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
+import toast from "react-hot-toast";
+// *************Types***************
+import { Listing, Reservation } from "@prisma/client";
+import { Range } from "react-date-range";
+import { SafeUser } from "@/app/type";
+// *************Custom Hooks***************
+import useLoginModal from "@/app/hooks/useLoginModal";
+// *************Components***************
 import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
-import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeReservation, SafeUser } from "@/app/type";
-import { Listing, Reservation } from "@prisma/client";
-import axios from "axios";
-import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
-import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Range } from "react-date-range";
-import toast from "react-hot-toast";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -47,7 +49,8 @@ const ListingClient = ({
     }
 
     setIsLoading(true);
-    axios.post("/api/reservations", {
+    axios
+      .post("/api/reservations", {
         totalPrice,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
@@ -56,12 +59,10 @@ const ListingClient = ({
       .then(() => {
         toast.success("Listing reserved");
         setIsLoading(false);
-        //redirect to /trips
-        router.push('/trips')
+        router.push("/trips");
       })
       .catch(() => toast.error("Something went wrong"))
-      .finally(() => setIsLoading(false)); 
-
+      .finally(() => setIsLoading(false));
   }, [totalPrice, dateRange, listing?.id, router, currentUser, loginModal]);
 
   useEffect(() => {
